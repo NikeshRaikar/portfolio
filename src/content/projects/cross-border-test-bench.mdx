@@ -1,0 +1,47 @@
+---
+title: "Cross-Border HIL Test Bench Bridge"
+subtitle: "Distributed CAN & Automotive Ethernet Tunneling (Germany ↔ India)"
+summary: "Hardware-software test bench architecture securely bridging physical automotive ECUs and bus traffic across international engineering locations."
+category: "Networking"
+accent: "amber"
+badge: "ARCHITECTURE · DISTRIBUTED HIL"
+date: "2026"
+featured: true
+status: "Active Architecture"
+metrics:
+  - "DE ↔ IN Remote Access"
+  - "CAN + Ethernet Bridging"
+  - "Encrypted Tunneling"
+stack:
+  - "Automotive Ethernet"
+  - "CAN FD"
+  - "DoIP / UDS"
+  - "Linux Networking"
+  - "Secure Tunnels"
+  - "Python Automation"
+---
+
+## Problem Statement
+
+Automotive test hardware—especially early-sample ECUs, full infotainment benches, and specialized harness rigs—is scarce and geographically concentrated. Shipping duplicate hardware between engineering teams in **Germany** and **India** creates multi-week bottlenecks and slows down defect reproduction.
+
+## Architecture Overview
+
+This architecture establishes a low-latency, encrypted bridge between a physical test bench in one location and remote diagnostic/automation clients in another:
+
+```text
+[ Bench Site: Germany ]                           [ Remote Site: India ]
+  Physical ECU Rack                                 Automation / Engineer
+   ├── CAN FD ──► Gateway Node ◄══ Encrypted ══► Virtual CAN / DoIP Client
+   └── Eth T1 ──► Linux Bridge      Tunnel          Diagnostic & CI Runner
+```
+
+## Technical Highlights
+
+* **Protocol-Aware Bridging:** Separates timing-critical local loops (executed directly on the bench host) from diagnostic and control traffic (UDS over DoIP, DLT streaming, and remote flashing) routed across the tunnel.
+* **Deterministic Recovery:** Automated power-supply control and watchdog scripts allow remote engineers to hard-reset wedged ECUs without requiring someone physically on-site.
+* **Security & Isolation:** Strict network segmentation ensures bench traffic stays isolated from corporate subnets while providing auditable access.
+
+## Impact
+
+Dramatically increases hardware utilization across time zones—enabling daytime execution in India and Europe on the exact same physical ECU bench without manual cable swaps.

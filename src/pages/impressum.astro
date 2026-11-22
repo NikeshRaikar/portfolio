@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout title={`Impressum | ${SITE.name}`}>
+  <article class="max-w-3xl mx-auto prose prose-invert prose-slate">
+    <p class="font-mono text-xs text-accentCyan uppercase tracking-widest">Legal Notice</p>
+    <h1>Impressum</h1>
+    <p>Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz):</p>
+    <p>
+      <strong>{SITE.fullName}</strong><br />
+      [Street &amp; House Number — update before publishing]<br />
+      [Postal Code] Frankfurt am Main<br />
+      Germany
+    </p>
+    <h2>Kontakt</h2>
+    <p>E-Mail: {SITE.email}</p>
+    <h2>Haftung für Inhalte &amp; Links</h2>
+    <p>
+      Diese Website dient ausschließlich als persönliches, nicht-kommerzielles Portfolio. Für Inhalte externer Links sind ausschließlich deren Betreiber verantwortlich.
+    </p>
+  </article>
+</BaseLayout>

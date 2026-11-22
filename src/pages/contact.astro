@@ -1,0 +1,118 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout title={`Contact | ${SITE.name}`} description={`Get in touch with ${SITE.name} in ${SITE.location}.`}>
+  <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
+    <div class="lg:col-span-5 space-y-6">
+      <div class="font-mono text-xs uppercase tracking-widest text-accentCyan">// Contact</div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Let's build something reliable.</h1>
+      <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+        Open to technical discussions around automotive embedded diagnostics, HIL automation architecture, and open-source Linux tooling.
+      </p>
+
+      <div class="card-surface p-5 space-y-4 font-mono text-xs">
+        <div>
+          <div class="text-slate-500 mb-1">Direct Email</div>
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-white">{SITE.email}</span>
+            <button
+              id="copy-email-btn"
+              type="button"
+              data-email={SITE.email}
+              class="px-2.5 py-1 rounded-md bg-white/[0.06] hover:bg-white/[0.12] text-accentCyan transition-colors"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="pt-3 border-t border-white/[0.07]">
+          <div class="text-slate-500 mb-1">Base</div>
+          <div class="text-slate-200">{SITE.location} (CET/CEST)</div>
+        </div>
+        <div class="pt-3 border-t border-white/[0.07] flex gap-4">
+          <a href={SITE.github} target="_blank" rel="noreferrer" class="text-slate-300 hover:text-accentCyan">GitHub ↗</a>
+          <a href={SITE.linkedin} target="_blank" rel="noreferrer" class="text-slate-300 hover:text-accentCyan">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7">
+      <form
+        action={SITE.formEndpoint}
+        method="POST"
+        class="card-surface p-6 sm:p-8 space-y-5"
+      >
+        <!-- Replace with your real Web3Forms access_key, or switch action to Formspree -->
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+        <input type="hidden" name="subject" value={`Portfolio Inquiry — ${SITE.name}`} />
+
+        <div>
+          <label for="name" class="block font-mono text-xs text-slate-300 mb-2">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            placeholder="Jane Doe"
+            class="w-full px-4 py-2.5 rounded-xl bg-canvas border border-white/[0.1] text-white text-sm focus:outline-none focus:border-accentCyan"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block font-mono text-xs text-slate-300 mb-2">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            placeholder="jane@company.com"
+            class="w-full px-4 py-2.5 rounded-xl bg-canvas border border-white/[0.1] text-white text-sm focus:outline-none focus:border-accentCyan"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="block font-mono text-xs text-slate-300 mb-2">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            placeholder="Tell me about your project, bench architecture, or opportunity..."
+            class="w-full px-4 py-2.5 rounded-xl bg-canvas border border-white/[0.1] text-white text-sm focus:outline-none focus:border-accentCyan resize-y"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full sm:w-auto px-6 py-3 rounded-xl bg-accentCyan text-slate-950 font-semibold text-sm hover:bg-cyan-300 transition-colors shadow-glowCyan"
+        >
+          Send Message →
+        </button>
+
+        <p class="font-mono text-[11px] text-slate-500">
+          Note: Add your free Web3Forms access key (or Formspree URL) in <code>src/pages/contact.astro</code> before deploying.
+        </p>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  function initCopy() {
+    const btn = document.getElementById('copy-email-btn');
+    btn?.addEventListener('click', async () => {
+      const email = btn.getAttribute('data-email') || '';
+      try {
+        await navigator.clipboard.writeText(email);
+        btn.textContent = 'Copied!';
+        setTimeout(() => (btn.textContent = 'Copy'), 1500);
+      } catch {
+        window.location.href = `mailto:${email}`;
+      }
+    });
+  }
+  initCopy();
+  document.addEventListener('astro:after-swap', initCopy);
+</script>

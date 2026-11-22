@@ -1,0 +1,122 @@
+---
+import { SITE } from '@data/site';
+---
+
+<div
+  id="cmdk-backdrop"
+  class="no-print fixed inset-0 z-50 hidden items-start justify-center pt-[14vh] px-4 bg-black/70 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Command Palette"
+>
+  <div class="w-full max-w-lg rounded-2xl bg-[#0E121B] border border-white/[0.12] shadow-2xl overflow-hidden">
+    <div class="flex items-center gap-3 px-4 py-3.5 border-b border-white/[0.08]">
+      <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+      </svg>
+      <input
+        id="cmdk-input"
+        type="text"
+        placeholder="Jump to a page, project, or action..."
+        class="w-full bg-transparent text-sm text-white placeholder-slate-500 focus:outline-none font-mono"
+        autocomplete="off"
+      />
+      <kbd class="px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/[0.06] text-slate-400">ESC</kbd>
+    </div>
+
+    <ul id="cmdk-list" class="max-h-72 overflow-y-auto p-2 space-y-1 font-mono text-xs">
+      <li><a href="/" data-cmd="overview home" class="cmdk-item"><span>Overview</span><span class="text-slate-500">/</span></a></li>
+      <li><a href="/projects" data-cmd="projects systems ttxb" class="cmdk-item"><span>Featured Systems &amp; Projects</span><span class="text-slate-500">/projects</span></a></li>
+      <li><a href="/projects/ttxb-cet-logger" data-cmd="ttxb cet-logger raspberry pi can ethernet" class="cmdk-item"><span>Project: TTxB (ceT-logger)</span><span class="text-emerald-400">Case Study</span></a></li>
+      <li><a href="/projects/cross-border-test-bench" data-cmd="cross border test bench hil germany india" class="cmdk-item"><span>Project: Cross-Border HIL Bridge</span><span class="text-amber-400">Case Study</span></a></li>
+      <li><a href="/work" data-cmd="work experience timeline istqb skills" class="cmdk-item"><span>Work, Credentials &amp; Protocols</span><span class="text-slate-500">/work</span></a></li>
+      <li><a href="/notes" data-cmd="notes blog articles engineering" class="cmdk-item"><span>Engineering Notes</span><span class="text-slate-500">/notes</span></a></li>
+      <li><a href="/cv" data-cmd="cv resume pdf download" class="cmdk-item"><span>View / Print CV (PDF)</span><span class="text-accentCyan">/cv</span></a></li>
+      <li><a href="/contact" data-cmd="contact email message" class="cmdk-item"><span>Contact</span><span class="text-slate-500">/contact</span></a></li>
+      <li>
+        <button
+          id="cmdk-copy-email"
+          type="button"
+          data-email={SITE.email}
+          data-cmd="copy email address"
+          class="cmdk-item w-full text-left"
+        >
+          <span id="cmdk-copy-label">Copy Email Address ({SITE.email})</span>
+          <span class="text-accentCyan">Action</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .cmdk-item {
+    @apply flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/[0.07] hover:text-white transition-colors;
+  }
+</style>
+
+<script>
+  function initCmdK() {
+    const backdrop = document.getElementById('cmdk-backdrop');
+    const input = document.getElementById('cmdk-input') as HTMLInputElement | null;
+    const trigger = document.getElementById('cmdk-trigger');
+    const items = Array.from(document.querySelectorAll('#cmdk-list li'));
+    const copyBtn = document.getElementById('cmdk-copy-email');
+    const copyLabel = document.getElementById('cmdk-copy-label');
+
+    const open = () => {
+      backdrop?.classList.remove('hidden');
+      backdrop?.classList.add('flex');
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      items.forEach((li) => li.classList.remove('hidden'));
+    };
+
+    const close = () => {
+      backdrop?.classList.add('hidden');
+      backdrop?.classList.remove('flex');
+    };
+
+    trigger?.addEventListener('click', open);
+    backdrop?.addEventListener('click', (e) => {
+      if (e.target === backdrop) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        backdrop?.classList.contains('hidden') ? open() : close();
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+
+    input?.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      items.forEach((li) => {
+        const el = li.firstElementChild as HTMLElement | null;
+        const text = ((el?.textContent || '') + ' ' + (el?.dataset.cmd || '')).toLowerCase();
+        li.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+      });
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email') || '';
+      try {
+        await navigator.clipboard.writeText(email);
+        if (copyLabel) copyLabel.textContent = 'Copied to clipboard!';
+        setTimeout(() => {
+          if (copyLabel) copyLabel.textContent = `Copy Email Address (${email})`;
+          close();
+        }, 900);
+      } catch {
+        window.location.href = `mailto:${email}`;
+      }
+    });
+  }
+
+  initCmdK();
+  document.addEventListener('astro:after-swap', initCmdK);
+</script>

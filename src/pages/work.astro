@@ -1,0 +1,96 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { TIMELINE, CREDENTIALS, SKILL_MATRIX } from '@data/experience';
+
+const accentHeader = {
+  cyan: 'text-accentCyan',
+  emerald: 'text-accentEmerald',
+  amber: 'text-accentAmber',
+};
+---
+
+<BaseLayout title="Work & Credentials | Nikesh Raikar" description="Career timeline, ISTQB certifications, and automotive protocol expertise.">
+  <section class="max-w-3xl mb-14">
+    <div class="font-mono text-xs uppercase tracking-widest text-accentCyan mb-2">// Experience &amp; Capabilities</div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">Work, Certifications &amp; Stack</h1>
+    <p class="text-slate-400 text-base leading-relaxed">
+      Hands-on leadership across automotive embedded systems, HIL test bench architecture, and low-level bus diagnostics.
+    </p>
+  </section>
+
+  <!-- CAREER TIMELINE -->
+  <section class="mb-20">
+    <h2 class="font-mono text-xs uppercase tracking-widest text-slate-400 mb-6">Career Timeline</h2>
+    <div class="space-y-6 border-l border-white/[0.1] pl-6 sm:pl-8 ml-2">
+      {TIMELINE.map((item) => (
+        <div class="relative card-surface p-6 sm:p-7">
+          <span class="absolute -left-[33px] sm:-left-[41px] top-7 w-3 h-3 rounded-full bg-accentCyan ring-4 ring-canvas"></span>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <h3 class="text-lg sm:text-xl font-bold text-white">{item.role}</h3>
+            <span class="font-mono text-xs text-accentCyan bg-cyan-500/10 px-2.5 py-1 rounded-md border border-cyan-500/20">
+              {item.period}
+            </span>
+          </div>
+          <div class="font-mono text-xs text-slate-400 mb-4">
+            {item.organization} · {item.location}
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">{item.summary}</p>
+          <ul class="space-y-2 mb-5">
+            {item.highlights.map((h) => (
+              <li class="text-sm text-slate-400 flex items-start gap-2.5">
+                <span class="text-accentCyan mt-1">▹</span>
+                <span>{h}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            {item.tags.map((t) => (
+              <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] font-mono text-[11px] text-slate-300">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- TECH & PROTOCOL MATRIX -->
+  <section class="mb-20">
+    <h2 class="font-mono text-xs uppercase tracking-widest text-slate-400 mb-6">Protocol &amp; Tooling Matrix</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {SKILL_MATRIX.map((group) => (
+        <div class="card-surface p-6">
+          <h3 class={`font-mono text-xs uppercase tracking-wider font-semibold mb-4 ${accentHeader[group.accent]}`}>
+            {group.category}
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {group.items.map((skill) => (
+              <span class="px-2.5 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.07] font-mono text-xs text-slate-200">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section>
+    <h2 class="font-mono text-xs uppercase tracking-widest text-slate-400 mb-6">Certifications &amp; Education</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {CREDENTIALS.map((cred) => (
+        <div class="card-surface p-5 flex items-start justify-between gap-4">
+          <div>
+            <div class="font-mono text-[11px] text-slate-500">{cred.issuer} · {cred.date}</div>
+            <div class="text-sm font-semibold text-white mt-1">{cred.title}</div>
+          </div>
+          <span class="px-2 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/25 font-mono text-xs text-accentCyan shrink-0">
+            {cred.badge}
+          </span>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

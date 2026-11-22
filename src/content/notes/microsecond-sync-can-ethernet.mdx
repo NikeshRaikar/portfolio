@@ -1,0 +1,32 @@
+---
+title: "Correlating CAN FD and Automotive Ethernet Logs at Microsecond Precision"
+description: "Practical notes on aligning hardware and kernel timestamps when debugging cross-bus ECU timing issues on Linux test benches."
+pubDate: "2026-10-18"
+readTime: "4 min read"
+tags: ["CAN FD", "Automotive Ethernet", "Linux", "Time Sync"]
+---
+
+When an infotainment head unit sends a diagnostic request over **DoIP (Automotive Ethernet)** and a gateway ECU translates it onto **CAN FD**, debugging latency spikes requires a single, trustworthy clock across both interfaces.
+
+## The Pitfall: Userspace Timestamps
+
+Reading frames in a Python loop and calling `time.time()` introduces jitter from OS scheduling, garbage collection, and socket buffering. Under heavy bus load, userspace timestamps can drift by several milliseconds—enough to invert the apparent cause-and-effect order of frames.
+
+## Better Approach: Kernel & Hardware Timestamps
+
+On Linux (`SocketCAN` and `AF_PACKET`), enable `SO_TIMESTAMPNS` (or `SO_TIMESTAMPING` when your NIC supports hardware PTP) so timestamps are stamped at interrupt/driver ingestion time rather than userspace read time.
+
+```python
+import socket
+
+# Request nanosecond-resolution kernel timestamps on a raw socket
+SO_TIMESTAMPNS = 35
+sock = socket.socket(socket.AF_CAN, socket.SOCK_RAW, socket.CAN_RAW)
+sock.setsockopt(socket.SOL_SOCKET, SO_TIMESTAMPNS, 1)
+```
+
+## Practical Checklist for Multi-Bus Benches
+
+1. Lock both capture interfaces to the same monotonic clock domain (`CLOCK_MONOTONIC_RAW` or PTP grandmaster).
+2. Avoid mixing wall-clock (`CLOCK_REALTIME`) timestamps with NTP jumps during long overnight endurance runs.
+3. Validate cross-bus skew periodically by toggling a known periodic signal visible on both buses.

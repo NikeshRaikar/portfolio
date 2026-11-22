@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #090B10;
+    color: #E2E8F0;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #090B10;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -15%, rgba(34, 211, 238, 0.09), transparent),
+      radial-gradient(ellipse 50% 35% at 90% 10%, rgba(16, 185, 129, 0.05), transparent);
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: rgba(34, 211, 238, 0.25);
+    color: #FFFFFF;
+  }
+}
+
+.card-surface {
+  @apply bg-surface/80 border border-white/[0.08] rounded-2xl backdrop-blur-sm transition-all duration-300;
+}
+
+.card-surface:hover {
+  @apply border-white/[0.16] bg-surfaceHover/90;
+}
+
+/* Clean Print Styling for /cv */
+@media print {
+  html, body {
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-card {
+    border: 1px solid #CBD5E1 !important;
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    box-shadow: none !important;
+  }
+  a {
+    text-decoration: none !important;
+    color: #0F172A !important;
+  }
+}

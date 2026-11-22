@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import ProseLayout from '@layouts/ProseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const { title, subtitle, summary, badge, date, status, metrics, stack, repoUrl } = project.data;
+---
+
+<ProseLayout
+  title={`${title} | Nikesh Raikar`}
+  description={summary}
+  backHref="/projects"
+  backLabel="Back to all projects"
+>
+  <header slot="header" class="pb-8 border-b border-white/[0.08]">
+    <div class="flex flex-wrap items-center gap-3 mb-4 font-mono text-xs">
+      <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-accentCyan">
+        {badge}
+      </span>
+      <span class="text-slate-500">{date} · {status}</span>
+    </div>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">{title}</h1>
+    <p class="font-mono text-sm text-slate-400 mb-6">{subtitle}</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+      {metrics.map((m) => (
+        <div class="px-4 py-3 rounded-xl bg-surface border border-white/[0.08] font-mono text-xs text-slate-200">
+          {m}
+        </div>
+      ))}
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap gap-2">
+        {stack.map((tech) => (
+          <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.07] font-mono text-[11px] text-slate-300">
+            {tech}
+          </span>
+        ))}
+      </div>
+      {repoUrl && (
+        <a
+          href={repoUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] font-mono text-xs text-white transition-colors"
+        >
+          View on GitHub ↗
+        </a>
+      )}
+    </div>
+  </header>
+
+  <Content />
+</ProseLayout>

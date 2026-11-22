@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ProjectCard from '@components/ui/ProjectCard.astro';
+
+const projects = await getCollection('projects');
+const categories = ['All', 'Embedded', 'Networking', 'Automation'];
+---
+
+<BaseLayout title="Projects | Nikesh Raikar" description="Automotive embedded systems, open-source data loggers, and distributed HIL test bench architectures.">
+  <section class="max-w-3xl mb-10">
+    <div class="font-mono text-xs uppercase tracking-widest text-accentCyan mb-2">// Systems &amp; Case Studies</div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">Featured Engineering Work</h1>
+    <p class="text-slate-400 text-base leading-relaxed">
+      Deep dives into hardware-software integration, multi-bus diagnostics, and Linux-native automotive tooling.
+    </p>
+  </section>
+
+  <!-- Category Filter -->
+  <div class="flex flex-wrap gap-2 mb-8 font-mono text-xs" id="project-filters">
+    {categories.map((cat, idx) => (
+      <button
+        type="button"
+        data-filter={cat}
+        class={`filter-btn px-3.5 py-1.5 rounded-lg border transition-colors ${
+          idx === 0
+            ? 'bg-cyan-500/15 border-cyan-400/40 text-accentCyan'
+            : 'bg-white/[0.03] border-white/[0.08] text-slate-400 hover:text-white'
+        }`}
+      >
+        {cat}
+      </button>
+    ))}
+  </div>
+
+  <!-- Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
+    {projects.map((project) => (
+      <div class="project-wrapper" data-category={project.data.category}>
+        <ProjectCard project={project} />
+      </div>
+    ))}
+  </div>
+</BaseLayout>
+
+<script>
+  function initFilters() {
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-wrapper');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const selected = btn.getAttribute('data-filter');
+        buttons.forEach((b) => {
+          const active = b === btn;
+          b.className = `filter-btn px-3.5 py-1.5 rounded-lg border transition-colors ${
+            active
+              ? 'bg-cyan-500/15 border-cyan-400/40 text-accentCyan'
+              : 'bg-white/[0.03] border-white/[0.08] text-slate-400 hover:text-white'
+          }`;
+        });
+
+        cards.forEach((card) => {
+          const cat = card.getAttribute('data-category');
+          const show = selected === 'All' || cat === selected;
+          card.classList.toggle('hidden', !show);
+        });
+      });
+    });
+  }
+  initFilters();
+  document.addEventListener('astro:after-swap', initFilters);
+</script>

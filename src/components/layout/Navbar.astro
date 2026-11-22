@@ -1,0 +1,103 @@
+---
+import { SITE, NAV_ITEMS } from '@data/site';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="no-print sticky top-0 z-40 w-full bg-canvas/80 backdrop-blur-md border-b border-white/[0.07]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+    <!-- Brand -->
+    <a href="/" class="flex items-center gap-3 group">
+      <div class="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-400/35 flex items-center justify-center font-mono font-bold text-sm text-accentCyan shadow-glowCyan group-hover:border-cyan-300 transition-colors">
+        {SITE.monogram}
+      </div>
+      <div class="leading-tight">
+        <div class="text-sm font-semibold text-white tracking-tight">{SITE.name}</div>
+        <div class="font-mono text-[11px] text-slate-400 hidden sm:block">
+          <span class="text-accentCyan">●</span> Automotive Embedded &amp; Automation
+        </div>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-1 font-mono text-xs" aria-label="Main Navigation">
+      {NAV_ITEMS.map((item) => (
+        <a
+          href={item.href}
+          class={`px-3 py-1.5 rounded-lg transition-colors ${
+            isActive(item.href)
+              ? 'text-accentCyan bg-cyan-500/10'
+              : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-2">
+      <button
+        id="cmdk-trigger"
+        type="button"
+        class="hidden sm:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] font-mono text-xs text-slate-400 hover:text-white transition-colors"
+        aria-label="Open Command Palette"
+      >
+        <span>Search</span>
+        <kbd class="px-1.5 py-0.5 text-[10px] rounded bg-white/[0.06] text-slate-300">⌘K</kbd>
+      </button>
+
+      <a
+        href="/cv"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] font-mono text-xs text-slate-200 transition-colors"
+      >
+        <span>CV / Resume</span>
+        <span class="text-accentCyan">↗</span>
+      </a>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="md:hidden p-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-slate-300 hover:text-white"
+        aria-label="Toggle Menu"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-white/[0.07] bg-canvas/95 backdrop-blur-lg">
+    <nav class="px-4 py-4 flex flex-col gap-1 font-mono text-sm">
+      {NAV_ITEMS.map((item) => (
+        <a
+          href={item.href}
+          class={`px-3 py-2.5 rounded-lg ${
+            isActive(item.href)
+              ? 'text-accentCyan bg-cyan-500/10'
+              : 'text-slate-300 hover:bg-white/[0.04]'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  function initNav() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn?.addEventListener('click', () => {
+      menu?.classList.toggle('hidden');
+    });
+  }
+  initNav();
+  document.addEventListener('astro:after-swap', initNav);
+</script>

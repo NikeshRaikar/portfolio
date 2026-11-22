@@ -1,0 +1,58 @@
+---
+title: "TTxB (ceT-logger)"
+subtitle: "Dual-Channel CAN & Automotive Ethernet Logging System"
+summary: "Open-source embedded data logger built on Raspberry Pi 5 for synchronized CAN FD and Automotive Ethernet capture, distributed as a clean Debian package."
+category: "Embedded"
+accent: "emerald"
+badge: "OPEN SOURCE · DEBIAN PACKAGE"
+date: "2026"
+featured: true
+status: "Released on GitHub"
+repoUrl: "https://github.com/yourusername/ttxb-cet-logger"
+metrics:
+  - "Dual-Bus Capture (CAN + Eth)"
+  - "Raspberry Pi 5 Linux Target"
+  - "One-Command .deb Deployment"
+stack:
+  - "Raspberry Pi 5"
+  - "Linux / SocketCAN"
+  - "Automotive Ethernet"
+  - "Debian Packaging"
+  - "Python & C"
+  - "systemd"
+---
+
+## Problem Statement
+
+Commercial automotive dual-bus data loggers that capture both **CAN / CAN FD** and **Automotive Ethernet** simultaneously are expensive, tightly locked to proprietary Windows tooling, and difficult to script into headless CI/CD test benches.
+
+**TTxB (ceT-logger)** was built from first principles to provide a transparent, scriptable, Linux-native logging appliance running on off-the-shelf Raspberry Pi 5 hardware.
+
+## System Architecture
+
+```text
+[ Vehicle / Test Bench ]
+   ├── CAN / CAN FD Bus ──────► SocketCAN Interface (can0 / can1)
+   └── Automotive Ethernet ───► 100BASE-T1 Media Converter ► eth0
+                                         │
+                                         ▼
+                        ┌─────────────────────────────────┐
+                        │   TTxB (ceT-logger) Daemon      │
+                        │  • Monotonic timestamping       │
+                        │  • Ring-buffer capture engine   │
+                        │  • systemd watchdog & rotation  │
+                        └─────────────────────────────────┘
+                                         │
+                                         ▼
+                      [ Structured Logs / PCAP / ASC ]
+```
+
+## Key Engineering Decisions
+
+1. **Native Linux Interfaces:** Leveraging `SocketCAN` and standard packet sockets eliminates proprietary kernel drivers and makes integration with existing automation scripts effortless.
+2. **Debian Packaging (`.deb`):** Instead of manual shell-script installation, the entire service, configuration templates, and `systemd` unit files are packaged into a reproducible `.deb` archive.
+3. **Resilient Storage Handling:** Automated log rotation and clean shutdown hooks prevent trace corruption during sudden ignition-off power cycles on the bench.
+
+## Outcome
+
+TTxB enables rapid deployment of reproducible logging nodes across multiple test benches at a fraction of commercial hardware costs, while remaining fully inspectable and extensible via GitHub.

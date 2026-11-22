@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import ProseLayout from '@layouts/ProseLayout.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await note.render();
+---
+
+<ProseLayout
+  title={`${note.data.title} | Nikesh Raikar`}
+  description={note.data.description}
+  backHref="/notes"
+  backLabel="Back to all notes"
+>
+  <header slot="header" class="pb-8 border-b border-white/[0.08]">
+    <div class="flex items-center gap-3 font-mono text-xs text-slate-500 mb-4">
+      <span>{note.data.pubDate}</span>
+      <span>·</span>
+      <span>{note.data.readTime}</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+      {note.data.title}
+    </h1>
+    <p class="text-slate-400 text-base leading-relaxed mb-5">{note.data.description}</p>
+    <div class="flex flex-wrap gap-2">
+      {note.data.tags.map((tag) => (
+        <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] font-mono text-[11px] text-accentCyan">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </header>
+
+  <Content />
+</ProseLayout>

@@ -1,0 +1,35 @@
+---
+title: "Sub-Second Embedded Boot Logger"
+subtitle: "ESP32-S3 ETH + FreeRTOS CAN Capture Exploration"
+summary: "Evaluating microcontroller-based embedded logging to capture early vehicle wake-up frames within milliseconds of power-on—before a full Linux OS can boot."
+category: "Embedded"
+accent: "cyan"
+badge: "R&D · REAL-TIME FIRMWARE"
+date: "2026"
+featured: false
+status: "Prototype"
+metrics:
+  - "< 500ms Cold Boot"
+  - "ESP32-S3 + FreeRTOS"
+  - "SN65HVD230 CAN PHY"
+stack:
+  - "ESP32-S3 ETH"
+  - "FreeRTOS"
+  - "SN65HVD230"
+  - "C / C++"
+  - "CAN 2.0 / TWAI"
+---
+
+## Why Linux Isn't Always Fast Enough
+
+Even an aggressively stripped Linux image on a single-board computer takes several seconds to reach userspace and initialize `SocketCAN`. During automotive cold-crank or wake-up testing, critical network management (NM) frames occur within the **first 200–500 milliseconds**.
+
+## Hardware & Firmware Approach
+
+* **Controller:** Waveshare **ESP32-S3 ETH** board combining wired Ethernet with dual-core FreeRTOS execution.
+* **Transceiver:** **SN65HVD230** 3.3V CAN transceiver wired to the ESP32-S3 TWAI peripheral.
+* **Real-Time Pipeline:** Dedicated FreeRTOS task pinned to Core 1 drains the CAN RX FIFO immediately on boot, buffering wake-up frames in PSRAM before flushing over Ethernet once the link negotiates.
+
+## Key Takeaway
+
+Pairing a sub-second microcontroller front-end with a Linux companion logger solves the classic cold-boot blind spot in automotive bench diagnostics.

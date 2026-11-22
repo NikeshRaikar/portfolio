@@ -1,0 +1,25 @@
+---
+title: "Why Your Embedded Test Tools Should Ship as Debian Packages"
+description: "Moving away from fragile setup scripts toward reproducible .deb packages with systemd integration for Raspberry Pi test benches."
+pubDate: "2026-09-14"
+readTime: "3 min read"
+tags: ["Linux", "Debian", "DevOps", "Test Automation"]
+---
+
+Every hardware test lab eventually accumulates a dreaded `setup_bench.sh` script—200 lines of `apt install`, `pip install`, and `cp` commands that fail silently whenever a new Raspberry Pi is imaged.
+
+## The Case for `.deb` Packaging
+
+Wrapping your internal or open-source bench utilities (like **TTxB**) into a proper Debian package takes less than an hour to set up and pays dividends immediately:
+
+* **Declarative Dependencies:** `dpkg` and `apt` enforce exact runtime dependencies automatically.
+* **Clean Upgrades & Rollbacks:** Upgrading a test bench to `v1.2.0` or rolling back to `v1.1.4` is a single deterministic command.
+* **First-Class `systemd` Lifecycle:** `postinst` and `prerm` maintainer scripts cleanly enable, restart, and stop background logging daemons.
+
+```bash
+# Build and install cleanly on any Debian / Raspberry Pi OS target
+dpkg-buildpackage -us -uc -b
+sudo apt install ./ttxb-cet-logger_1.0.0_arm64.deb
+```
+
+Treat test bench infrastructure with the same release discipline as production firmware—your future self debugging a lab rig at 6 PM will thank you.

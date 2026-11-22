@@ -1,0 +1,27 @@
+---
+import { SITE } from '@data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="no-print border-t border-white/[0.07] mt-24 bg-canvas/60">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <div>
+      <div class="font-semibold text-white text-sm">{SITE.name}</div>
+      <p class="font-mono text-xs text-slate-500 mt-1">
+        {SITE.location} · Built with Astro, TypeScript &amp; Tailwind CSS
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-5 font-mono text-xs text-slate-400">
+      <a href={SITE.github} target="_blank" rel="noreferrer" class="hover:text-accentCyan transition-colors">GitHub</a>
+      <a href={SITE.linkedin} target="_blank" rel="noreferrer" class="hover:text-accentCyan transition-colors">LinkedIn</a>
+      <a href="/cv" class="hover:text-accentCyan transition-colors">CV</a>
+      <span class="text-white/15">|</span>
+      <a href="/impressum" class="hover:text-white transition-colors">Impressum</a>
+      <a href="/datenschutz" class="hover:text-white transition-colors">Datenschutz</a>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pb-8 font-mono text-[11px] text-slate-600">
+    © {year} {SITE.fullName}. All rights reserved.
+  </div>
+</footer>

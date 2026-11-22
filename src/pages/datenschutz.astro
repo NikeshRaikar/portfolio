@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+---
+
+<BaseLayout title={`Datenschutzerklärung | ${SITE.name}`}>
+  <article class="max-w-3xl mx-auto prose prose-invert prose-slate">
+    <p class="font-mono text-xs text-accentCyan uppercase tracking-widest">Privacy Policy</p>
+    <h1>Datenschutzerklärung (DSGVO)</h1>
+    <h2>1. Datenschutz auf einen Blick</h2>
+    <p>
+      Diese Website ist eine rein statische Portfolio-Seite. Sie setzt <strong>keine Tracking-Cookies</strong> und verwendet keine Werbe- oder Analyse-Tracker.
+    </p>
+    <h2>2. Hosting</h2>
+    <p>
+      Diese Website wird über einen statischen Hosting-Anbieter (z. B. Cloudflare Pages oder GitHub Pages) bereitgestellt. Beim Aufruf werden technisch notwendige Server-Logdaten (IP-Adresse, Zeitstempel, angeforderte Ressource) zur Auslieferung und Sicherheit der Website verarbeitet (Art. 6 Abs. 1 lit. f DSGVO).
+    </p>
+    <h2>3. Kontaktaufnahme</h2>
+    <p>
+      Wenn Sie über das Kontaktformular oder per E-Mail Kontakt aufnehmen, werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.
+    </p>
+    <h2>4. Verantwortliche Stelle</h2>
+    <p>
+      {SITE.fullName} · Frankfurt am Main, Germany · E-Mail: {SITE.email}
+    </p>
+  </article>
+</BaseLayout>
