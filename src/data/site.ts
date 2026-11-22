@@ -22,7 +22,7 @@ export const SITE = {
   linkedin: 'https://linkedin.com/in/yourusername', // Replace with your LinkedIn URL
   domain: 'https://nikeshraikar.dev',
   formEndpoint: 'https://api.web3forms.com/submit',
-  avatarSrc: '/images/avatar-placeholder.svg', // Swap with /images/avatar.jpg
+  avatarSrc: '/images/avatar.webp', // Swap with /images/avatar.jpg
   statusText: 'Senior DQA Engineer @ LG Vehicle Components · Frankfurt, DE',
 };
 
