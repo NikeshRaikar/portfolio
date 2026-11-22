@@ -14,16 +14,16 @@ export const SITE = {
   name: 'Nikesh Raikar',
   fullName: 'Nikesh Jagadeesh Raikar',
   monogram: 'NR',
-  role: 'Senior Automation Engineer & Tech Lead',
-  specialty: 'Automotive Embedded Systems · ECU Testing · Diagnostics',
+  role: 'Senior DQA Engineer & Automation Lead',
+  specialty: 'Automotive Embedded · Test Bench Commissioning · Multimedia Automation',
   location: 'Frankfurt am Main, Germany',
-  email: 'hello@nikeshraikar.dev', // Replace with your actual email
+  email: 'raikarnikeshapril@outlook.com',
   github: 'https://github.com/yourusername', // Replace with your GitHub URL
   linkedin: 'https://linkedin.com/in/yourusername', // Replace with your LinkedIn URL
   domain: 'https://nikeshraikar.dev',
-  formEndpoint: 'https://api.web3forms.com/submit', // Or your Formspree endpoint
+  formEndpoint: 'https://api.web3forms.com/submit',
   avatarSrc: '/images/avatar-placeholder.svg', // Swap with /images/avatar.jpg
-  statusText: 'Senior Automation Engineer & Tech Lead · Frankfurt am Main, DE',
+  statusText: 'Senior DQA Engineer @ LG Vehicle Components · Frankfurt, DE',
 };
 
 export const NAV_ITEMS: NavItem[] = [
@@ -36,27 +36,27 @@ export const NAV_ITEMS: NavItem[] = [
 
 export const HERO_METRICS: MetricItem[] = [
   {
-    value: '3× ISTQB',
-    label: 'Certified',
-    sublabel: 'CTFL · CT-TAS · Automotive Tester',
+    value: '7+ Years',
+    label: 'Industry Experience',
+    sublabel: 'Automotive IVI, ECU & Multimedia Automation',
     accent: 'cyan',
   },
   {
-    value: 'Dual-Bus',
-    label: 'TTxB Logger',
-    sublabel: 'CAN FD + Automotive Ethernet on RPi 5',
+    value: '3× ISTQB',
+    label: 'Certified',
+    sublabel: 'CTFL · CT-TAS · Automotive Tester',
     accent: 'emerald',
   },
   {
-    value: 'DE ↔ IN',
-    label: 'Remote HIL Bridge',
-    sublabel: 'Cross-border CAN & Eth test bench tunnels',
+    value: 'VW / OEM',
+    label: 'OTA & TBMS Lead',
+    sublabel: 'FOTA automation for VW, SEAT & SKODA',
     accent: 'amber',
   },
   {
-    value: 'ISO 14229',
-    label: 'Protocol Depth',
-    sublabel: 'UDS · DoIP · 100/1000BASE-T1 · DLT',
+    value: 'Embedded',
+    label: 'Custom Loggers',
+    sublabel: 'Jetson Nano (MIB/ICAS) & RPi 5 (TTxB)',
     accent: 'slate',
   },
 ];
