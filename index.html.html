@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nikesh Raikar | Automotive Test Automation & Embedded Systems</title>
+  <meta name="description" content="Personal engineering portfolio of Nikesh Raikar — Senior Automation Engineer & Tech Lead specializing in Automotive Embedded Systems, ECU Diagnostics, CAN FD, Automotive Ethernet, UDS, and DoIP." />
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter, and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#090C10',
+            surface: '#11161D',
+            surfaceHover: '#161C26',
+            cyanAccent: '#22D3EE',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'cyan-glow': '0 0 24px -6px rgba(34, 211, 238, 0.35)',
+            'amber-glow': '0 0 32px -12px rgba(251, 191, 36, 0.25)',
+            'emerald-glow': '0 0 32px -12px rgba(52, 211, 153, 0.25)',
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-obsidian text-slate-200 font-sans antialiased selection:bg-cyanAccent/25 selection:text-cyanAccent overflow-x-hidden">
+
+  <!-- Ambient Background Radial Glows -->
+  <div aria-hidden="true" class="pointer-events-none fixed inset-0 overflow-hidden -z-10">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[520px] rounded-full bg-cyanAccent/[0.06] blur-[120px]"></div>
+    <div class="absolute top-64 -right-40 w-[460px] h-[460px] rounded-full bg-emerald-500/[0.04] blur-[110px]"></div>
+    <div class="absolute top-[900px] -left-40 w-[480px] h-[480px] rounded-full bg-purple-500/[0.04] blur-[120px]"></div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 1. STICKY TRANSLUCENT TOP NAVBAR                                      -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 w-full border-b border-white/[0.07] bg-obsidian/80 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Left: Monogram + Identity -->
+      <a href="#overview" class="flex items-center gap-3 group focus:outline-none">
+        <div class="relative w-9 h-9 rounded-lg bg-surface border border-cyanAccent/50 flex items-center justify-center shadow-[0_0_15px_rgba(34,211,238,0.22)] group-hover:border-cyanAccent group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all duration-200">
+          <span class="font-mono text-xs font-semibold tracking-wider text-cyanAccent">NR</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-bold text-sm sm:text-[15px] text-white leading-tight tracking-tight group-hover:text-cyanAccent transition-colors">
+            Nikesh Raikar
+          </span>
+          <span class="flex items-center gap-1.5 text-[11px] font-mono text-slate-400 leading-tight mt-0.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+            <span class="hidden sm:inline">Senior Automation Engineer • Automotive Systems</span>
+            <span class="sm:hidden">Automotive Systems</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Center: Monospace Navigation Links (Desktop) -->
+      <nav aria-label="Primary Navigation" class="hidden md:flex items-center gap-1 bg-surface/60 border border-white/[0.06] rounded-xl px-2 py-1">
+        <a href="#overview" data-nav-link="overview" class="nav-link px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 text-cyanAccent bg-cyanAccent/10">
+          Overview
+        </a>
+        <a href="#projects" data-nav-link="projects" class="nav-link px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/[0.04]">
+          Projects
+        </a>
+        <a href="#work" data-nav-link="work" class="nav-link px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/[0.04]">
+          Work
+        </a>
+        <a href="#about" data-nav-link="about" class="nav-link px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/[0.04]">
+          About
+        </a>
+        <a href="#contact" data-nav-link="contact" class="nav-link px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/[0.04]">
+          Contact
+        </a>
+      </nav>
+
+      <!-- Right: CV Button + Mobile Menu Trigger -->
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          onclick="openCvModal()"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface hover:bg-surfaceHover border border-white/10 hover:border-cyanAccent/40 text-xs font-mono text-slate-200 hover:text-white transition-all duration-200"
+        >
+          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span>CV / Resume</span>
+          <span class="text-cyanAccent">↗</span>
+        </button>
+
+        <!-- Mobile Hamburger Button -->
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          aria-label="Toggle Navigation Menu"
+          aria-expanded="false"
+          onclick="toggleMobileMenu()"
+          class="md:hidden p-2.5 rounded-lg bg-surface border border-white/10 text-slate-300 hover:text-white hover:border-white/20 transition-colors"
+        >
+          <svg id="hamburger-icon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/[0.07] bg-obsidian/95 backdrop-blur-xl px-4 py-3 space-y-1">
+      <a href="#overview" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg font-mono text-xs text-cyanAccent bg-cyanAccent/10">Overview</a>
+      <a href="#projects" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg font-mono text-xs text-slate-300 hover:text-white hover:bg-white/[0.05]">Projects</a>
+      <a href="#work" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg font-mono text-xs text-slate-300 hover:text-white hover:bg-white/[0.05]">Work</a>
+      <a href="#about" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg font-mono text-xs text-slate-300 hover:text-white hover:bg-white/[0.05]">About</a>
+      <a href="#contact" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg font-mono text-xs text-slate-300 hover:text-white hover:bg-white/[0.05]">Contact</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- ===================================================================== -->
+    <!-- 2. HERO SECTION                                                       -->
+    <!-- ===================================================================== -->
+    <section id="overview" class="pt-10 sm:pt-14 pb-10 scroll-mt-20">
+      
+      <!-- Top Status Pill -->
+      <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-surface/90 border border-white/10 shadow-sm mb-8 max-w-full">
+        <span class="relative flex h-2 w-2 shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+        </span>
+        <span class="font-mono text-[11px] sm:text-xs text-slate-300 truncate">
+          Senior Automation Engineer &amp; Tech Lead • Automotive Embedded Systems
+          <span class="text-slate-600 mx-1.5">|</span>
+          <span class="text-slate-400">Frankfurt am Main, DE</span>
+        </span>
+      </div>
+
+      <!-- Two-Column Hero Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        
+        <!-- Left Column: Headline, Bio, CTAs -->
+        <div class="lg:col-span-8 space-y-6">
+          <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.35rem] text-white tracking-tight leading-[1.08]">
+            Automotive Test Automation, ECU Diagnostics &amp; Embedded Systems.
+          </h1>
+
+          <p class="text-slate-300/90 text-base sm:text-[17px] leading-relaxed max-w-2xl">
+            I’m Nikesh Raikar, a Senior Automation Engineer &amp; Tech Lead architecting production ECU validation and infotainment test systems. My work spans CAN FD, Automotive Ethernet (100BASE-T1 / 1000BASE-T1), UDS (ISO 14229), DoIP, and open-source hardware-software logging. Explore
+            <button type="button" onclick="openProjectModal('ttxb')" class="text-cyanAccent underline decoration-cyanAccent/50 underline-offset-4 hover:decoration-cyanAccent font-medium transition-colors">
+              TTxB (ceT-logger)
+            </button>
+            and my
+            <button type="button" onclick="openProjectModal('crossborder')" class="text-cyanAccent underline decoration-cyanAccent/50 underline-offset-4 hover:decoration-cyanAccent font-medium transition-colors">
+              Cross-Border Test Bench
+            </button>
+            architecture.
+          </p>
+
+          <!-- Action Row -->
+          <div class="flex flex-wrap items-center gap-3.5 pt-2">
+            <a
+              href="#projects"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-cyanAccent hover:bg-cyan-300 text-obsidian font-semibold text-sm shadow-cyan-glow transition-all duration-200 hover:-translate-y-0.5"
+            >
+              <span>Explore Featured Systems</span>
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <button
+              type="button"
+              onclick="openCvModal()"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface hover:bg-surfaceHover border border-white/15 hover:border-white/25 text-slate-200 hover:text-white font-medium text-sm transition-all duration-200"
+            >
+              <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>Download CV (PDF)</span>
+              <span class="text-slate-400">↗</span>
+            </button>
+
+            <a
+              href="#contact"
+              class="px-3.5 py-3 rounded-xl text-sm font-medium text-slate-400 hover:text-white transition-colors"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Stylized Portrait Placeholder Card -->
+        <div class="lg:col-span-4 flex justify-start lg:justify-end">
+          <div class="relative w-full max-w-[300px] sm:max-w-[320px] aspect-[4/4.3] rounded-2xl bg-gradient-to-b from-[#151D28] via-surface to-[#0B0F15] border border-white/10 p-3 shadow-2xl overflow-hidden group">
+            
+            <!-- Subtle Grid Texture Inside Card -->
+            <div class="relative w-full h-full rounded-xl bg-[#0D1219] border border-white/[0.06] overflow-hidden flex items-center justify-center">
+              
+              <!-- Precision Corner Reticles (Inspired by reference framing) -->
+              <span class="absolute top-3 left-3 w-3.5 h-3.5 border-t-2 border-l-2 border-cyanAccent/60 rounded-tl-sm"></span>
+              <span class="absolute top-3 right-3 w-3.5 h-3.5 border-t-2 border-r-2 border-cyanAccent/30 rounded-tr-sm"></span>
+              <span class="absolute bottom-3 right-3 w-3.5 h-3.5 border-b-2 border-r-2 border-cyanAccent/30 rounded-br-sm"></span>
+
+              <!-- Swap Photo Hint Pill -->
+              <div class="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-md bg-obsidian/80 backdrop-blur-md border border-white/10 font-mono text-[10px] text-slate-400 group-hover:text-cyanAccent group-hover:border-cyanAccent/40 transition-colors">
+                Swap Your Photo
+              </div>
+
+              <!-- Sleek Geometric Tech Avatar / Silhouette SVG -->
+              <svg viewBox="0 0 280 300" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nikesh Raikar stylized portrait placeholder">
+                <defs>
+                  <radialGradient id="avatarGlow" cx="50%" cy="40%" r="55%">
+                    <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.22" />
+                    <stop offset="60%" stop-color="#1E293B" stop-opacity="0.08" />
+                    <stop offset="100%" stop-color="#090C10" stop-opacity="0" />
+                  </radialGradient>
+                  <linearGradient id="silhouetteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#334155" />
+                    <stop offset="100%" stop-color="#1E293B" />
+                  </linearGradient>
+                  <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.7" />
+                    <stop offset="50%" stop-color="#A855F7" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#34D399" stop-opacity="0.6" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Background subtle circuit lines -->
+                <rect width="280" height="300" fill="url(#avatarGlow)" />
+                <g stroke="#22D3EE" stroke-opacity="0.12" stroke-width="1" fill="none">
+                  <path d="M20 70 H65 L85 90" />
+                  <path d="M260 110 H215 L195 130" />
+                  <path d="M30 200 H70 L90 180" />
+                  <circle cx="20" cy="70" r="2.5" fill="#22D3EE" fill-opacity="0.35" />
+                  <circle cx="260" cy="110" r="2.5" fill="#34D399" fill-opacity="0.35" />
+                  <circle cx="30" cy="200" r="2.5" fill="#A855F7" fill-opacity="0.35" />
+                </g>
+
+                <!-- Precision Orbital Ring -->
+                <circle cx="140" cy="128" r="78" fill="none" stroke="url(#ringGrad)" stroke-width="1.25" stroke-dasharray="6 5" />
+                <circle cx="140" cy="128" r="64" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+
+                <!-- Stylized Minimalist Bust Silhouette -->
+                <circle cx="140" cy="108" r="34" fill="url(#silhouetteGrad)" stroke="#22D3EE" stroke-opacity="0.35" stroke-width="1.5" />
+                <path d="M76 232 C76 184 104 158 140 158 C176 158 204 184 204 232" fill="url(#silhouetteGrad)" stroke="#22D3EE" stroke-opacity="0.3" stroke-width="1.5" />
+
+                <!-- Subtle Monogram Watermark on Chest -->
+                <text x="140" y="206" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#22D3EE" fill-opacity="0.65" letter-spacing="2">NR // ECU</text>
+              </svg>
+
+              <!-- Bottom-Left Frosted-Glass Identity Badge -->
+              <div class="absolute bottom-3 left-3 right-3 rounded-xl bg-obsidian/75 backdrop-blur-md border border-white/10 px-3.5 py-2.5">
+                <p class="font-mono text-[11px] font-semibold tracking-wider text-white uppercase">
+                  NIKESH RAIKAR
+                </p>
+                <p class="font-mono text-[10px] text-cyanAccent/90 mt-0.5">
+                  Tech Lead • Embedded &amp; QA
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Metrics Strip (4-Column Full-Width Glassmorphic Card) -->
+      <div class="mt-10 rounded-2xl bg-surface/75 backdrop-blur-md border border-white/[0.08] p-5 sm:p-6 shadow-xl">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-white/[0.08]">
+          
+          <!-- Stat 1 (Purple) -->
+          <div class="lg:pr-6">
+            <div class="font-display font-bold text-2xl sm:text-[26px] text-purple-400 tracking-tight">
+              3× ISTQB
+            </div>
+            <p class="mt-1.5 text-xs sm:text-[13px] text-slate-400 leading-snug">
+              CTFL, CT-TAS &amp; Automotive Tester Certified
+            </p>
+          </div>
+
+          <!-- Stat 2 (Cyan) -->
+          <div class="lg:px-6">
+            <div class="font-display font-bold text-2xl sm:text-[26px] text-cyanAccent tracking-tight">
+              TTxB
+            </div>
+            <p class="mt-1.5 text-xs sm:text-[13px] text-slate-400 leading-snug">
+              Open-source dual-channel CAN &amp; Eth logger (RPi 5)
+            </p>
+          </div>
+
+          <!-- Stat 3 (Emerald) -->
+          <div class="lg:px-6">
+            <div class="font-display font-bold text-2xl sm:text-[26px] text-emerald-400 tracking-tight">
+              DE ↔ IN
+            </div>
+            <p class="mt-1.5 text-xs sm:text-[13px] text-slate-400 leading-snug">
+              Bridged CAN/Ethernet remote test bench tunnels
+            </p>
+          </div>
+
+          <!-- Stat 4 (Amber) -->
+          <div class="lg:pl-6">
+            <div class="font-display font-bold text-2xl sm:text-[26px] text-amber-400 tracking-tight">
+              µs-Sync
+            </div>
+            <p class="mt-1.5 text-xs sm:text-[13px] text-slate-400 leading-snug">
+              Low-level UDS, DoIP, CAN FD &amp; DLT diagnostics
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. CERTIFICATIONS & DOMAIN STRIP                                      -->
+    <!-- ===================================================================== -->
+    <section aria-label="Certifications and Domain Credentials" class="py-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        
+        <div class="rounded-xl bg-surface/65 border border-white/[0.07] hover:border-white/15 px-4 py-3.5 transition-all duration-200">
+          <div class="text-xs font-semibold text-white tracking-tight">ISTQB®</div>
+          <div class="mt-1 font-mono text-[11px] text-emerald-400/90 leading-snug">Automotive Tester (Oct 2026)</div>
+        </div>
+
+        <div class="rounded-xl bg-surface/65 border border-white/[0.07] hover:border-white/15 px-4 py-3.5 transition-all duration-200">
+          <div class="text-xs font-semibold text-white tracking-tight">ISTQB®</div>
+          <div class="mt-1 font-mono text-[11px] text-slate-400 leading-snug">Test Automation Strategy (CT-TAS)</div>
+        </div>
+
+        <div class="rounded-xl bg-surface/65 border border-white/[0.07] hover:border-white/15 px-4 py-3.5 transition-all duration-200">
+          <div class="text-xs font-semibold text-white tracking-tight">ISTQB®</div>
+          <div class="mt-1 font-mono text-[11px] text-slate-400 leading-snug">Foundation Level (CTFL)</div>
+        </div>
+
+        <div class="rounded-xl bg-surface/65 border border-white/[0.07] hover:border-white/15 px-4 py-3.5 transition-all duration-200">
+          <div class="text-xs font-semibold text-white tracking-tight">B.Sc. Engineering</div>
+          <div class="mt-1 font-mono text-[11px] text-slate-400 leading-snug">Electronics &amp; Communication</div>
+        </div>
+
+        <div class="rounded-xl bg-surface/65 border border-white/[0.07] hover:border-cyanAccent/30 px-4 py-3.5 transition-all duration-200 sm:col-span-2 md:col-span-1">
+          <div class="text-xs font-semibold text-white tracking-tight">Automotive Protocols</div>
+          <div class="mt-1 font-mono text-[11px] text-cyanAccent/90 leading-snug">UDS • DoIP • CAN FD • 1000BASE-T1</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 4. RECOGNITION & FEATURED SYSTEMS SECTION                             -->
+    <!-- ===================================================================== -->
+    <section id="projects" class="py-16 scroll-mt-20">
+      
+      <!-- Section Header -->
+      <div class="mb-8">
+        <div class="inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-widest text-amber-400 uppercase mb-2.5">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+          </svg>
+          <span>FEATURED SYSTEMS &amp; MILESTONES</span>
+        </div>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl lg:text-[2.1rem] text-white tracking-tight">
+          Open-source hardware tooling and distributed test architectures
+        </h2>
+      </div>
+
+      <!-- Two-Column Interactive Feature Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Card 1: TTxB (ceT-logger) — Amber Accent -->
+        <article
+          onclick="openProjectModal('ttxb')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); openProjectModal('ttxb'); }"
+          class="group relative rounded-2xl bg-gradient-to-br from-amber-500/[0.06] via-surface to-surface border border-white/[0.09] hover:border-amber-400/50 hover:shadow-amber-glow p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400/50"
+        >
+          <div>
+            <!-- Colored Pill Badge -->
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 font-mono text-[11px] font-medium tracking-wider text-amber-300 uppercase">
+              OPEN SOURCE • DEBIAN PACKAGE
+            </span>
+
+            <h3 class="mt-5 font-display font-bold text-xl sm:text-2xl text-white group-hover:text-amber-200 transition-colors leading-snug">
+              TTxB (ceT-logger) — Dual-Channel Bus Logger
+            </h3>
+
+            <p class="mt-3.5 text-sm sm:text-[15px] text-slate-300/85 leading-relaxed">
+              A high-throughput, hardware-synchronized dual-channel CAN FD and Automotive Ethernet (100BASE-T1 / 1000BASE-T1) logging appliance built on Raspberry Pi 5. Engineered for deterministic timestamping, zero-drop trace capture, and effortless deployment as a native <span class="font-mono text-xs text-amber-300/90">.deb</span> package on GitHub.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between">
+            <span class="inline-flex items-center gap-1.5 font-mono text-xs font-medium text-amber-400 group-hover:text-amber-300 transition-colors">
+              <span>View architecture &amp; specs</span>
+              <span class="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+            </span>
+            <span class="font-mono text-[11px] text-slate-500">RPi 5 • Linux • SocketCAN</span>
+          </div>
+        </article>
+
+        <!-- Card 2: Cross-Border Remote ECU Test Bench — Emerald Accent -->
+        <article
+          onclick="openProjectModal('crossborder')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); openProjectModal('crossborder'); }"
+          class="group relative rounded-2xl bg-gradient-to-br from-emerald-500/[0.07] via-surface to-surface border border-white/[0.09] hover:border-emerald-400/50 hover:shadow-emerald-glow p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-400/50"
+        >
+          <div>
+            <!-- Colored Pill Badge -->
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 font-mono text-[11px] font-medium tracking-wider text-emerald-300 uppercase">
+              DISTRIBUTED HARDWARE ARCHITECTURE
+            </span>
+
+            <h3 class="mt-5 font-display font-bold text-xl sm:text-2xl text-white group-hover:text-emerald-200 transition-colors leading-snug">
+              Cross-Border Remote ECU Test Bench
+            </h3>
+
+            <p class="mt-3.5 text-sm sm:text-[15px] text-slate-300/85 leading-relaxed">
+              An intercontinental HIL bridging architecture connecting automotive CAN FD and Automotive Ethernet test benches between Germany and India over encrypted, low-latency L2/L3 network tunnels—enabling distributed engineers to run real-time UDS/DoIP diagnostics and automated regressions on physical ECUs remotely.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between">
+            <span class="inline-flex items-center gap-1.5 font-mono text-xs font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
+              <span>Explore system design</span>
+              <span class="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+            </span>
+            <span class="font-mono text-[11px] text-slate-500">DE ↔ IN • DoIP • Tunneling</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. WORK & TECHNICAL STACK SECTION ("WORK" / "ABOUT")                  -->
+    <!-- ===================================================================== -->
+    <section id="work" class="py-16 scroll-mt-20 border-t border-white/[0.06]">
+      
+      <!-- Centered Cyan Eyebrow & Heading -->
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-widest text-cyanAccent uppercase mb-2.5">
+          <span>✦</span>
+          <span>INTRO</span>
+        </div>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-white tracking-tight">
+          Engineering from first principles
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-400 leading-relaxed">
+          Bridging low-level automotive bus physics with scalable software test automation and reproducible Linux infrastructure.
+        </p>
+      </div>
+
+      <!-- 2-Column Layout: Left = Career & Philosophy, Right = Technical Matrix -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Column: Career / Engineering Philosophy & Timeline Highlights -->
+        <div class="lg:col-span-6 space-y-6">
+          <div class="rounded-2xl bg-surface/80 border border-white/[0.08] p-6 sm:p-7">
+            <h3 class="font-display font-bold text-lg text-white mb-3">
+              Engineering Philosophy
+            </h3>
+            <p class="text-sm text-slate-300/90 leading-relaxed">
+              Modern vehicle architectures demand verification pipelines that are as deterministic as the embedded ECUs they validate. I design end-to-end test frameworks that eliminate manual bottlenecks—combining protocol-level precision (UDS, DoIP, CAN FD, DLT) with clean Python automation, Debian-packaged edge tooling, and continuous hardware-in-the-loop (HIL) execution.
+            </p>
+          </div>
+
+          <!-- Timeline Highlights -->
+          <div class="rounded-2xl bg-surface/80 border border-white/[0.08] p-6 sm:p-7">
+            <h3 class="font-mono text-xs font-semibold tracking-widest text-slate-400 uppercase mb-5">
+              Career &amp; Leadership Highlights
+            </h3>
+
+            <ol class="relative border-l border-white/10 ml-2 space-y-6">
+              <li class="pl-6 relative">
+                <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-cyanAccent ring-4 ring-obsidian"></span>
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <h4 class="font-display font-semibold text-[15px] text-white">Senior Automation Engineer &amp; Tech Lead</h4>
+                  <span class="font-mono text-[11px] text-cyanAccent bg-cyanAccent/10 px-2 py-0.5 rounded">Automotive Embedded</span>
+                </div>
+                <p class="mt-1.5 text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Leading test automation architecture for next-generation ECU and Infotainment platforms. Driving CI/CD integration across HIL rigs, cross-site test bench federation (DE ↔ IN), and diagnostic validation standards.
+                </p>
+              </li>
+
+              <li class="pl-6 relative">
+                <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-4 ring-obsidian"></span>
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <h4 class="font-display font-semibold text-[15px] text-white">ECU &amp; Infotainment Validation</h4>
+                  <span class="font-mono text-[11px] text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded">UDS / DoIP / DLT</span>
+                </div>
+                <p class="mt-1.5 text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Automated fault injection, flashing workflows, diagnostic session validation (ISO 14229), and real-time DLT log correlation to surface race conditions and regressions early in the V-model cycle.
+                </p>
+              </li>
+
+              <li class="pl-6 relative">
+                <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-purple-400 ring-4 ring-obsidian"></span>
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <h4 class="font-display font-semibold text-[15px] text-white">Linux &amp; Python Hardware Tooling</h4>
+                  <span class="font-mono text-[11px] text-purple-300 bg-purple-400/10 px-2 py-0.5 rounded">Edge &amp; Open Source</span>
+                </div>
+                <p class="mt-1.5 text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Building custom embedded test fixtures on Raspberry Pi 5 and ESP32-S3, packaged cleanly for Debian Linux to replace expensive proprietary bus loggers with scriptable, version-controlled hardware appliances.
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Right Column: Structured Technical Matrix (#about) -->
+        <div id="about" class="lg:col-span-6 space-y-6 scroll-mt-24">
+          
+          <!-- Protocols Card -->
+          <div class="rounded-2xl bg-surface/80 border border-white/[0.08] p-6 sm:p-7">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-mono text-xs font-semibold tracking-widest text-cyanAccent uppercase">
+                01 // Automotive Protocols &amp; Diagnostics
+              </h3>
+              <span class="font-mono text-[11px] text-slate-500">ISO / IEEE</span>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-cyanAccent/25 font-mono text-xs text-cyan-200">UDS (ISO 14229)</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-cyanAccent/25 font-mono text-xs text-cyan-200">CAN FD</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-cyanAccent/25 font-mono text-xs text-cyan-200">DoIP (ISO 13400)</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">Automotive Ethernet</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">100BASE-T1 / 1000BASE-T1</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">DLT (Diagnostic Log &amp; Trace)</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">LIN</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">FlexRay</span>
+            </div>
+          </div>
+
+          <!-- Systems & Tooling Card -->
+          <div class="rounded-2xl bg-surface/80 border border-white/[0.08] p-6 sm:p-7">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-mono text-xs font-semibold tracking-widest text-emerald-400 uppercase">
+                02 // Systems, Hardware &amp; Automation
+              </h3>
+              <span class="font-mono text-[11px] text-slate-500">STACK</span>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-emerald-400/25 font-mono text-xs text-emerald-200">Python Automation</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-emerald-400/25 font-mono text-xs text-emerald-200">Linux Debian Packaging</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">Raspberry Pi 5</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">ESP32-S3</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">SocketCAN / netlink</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">CI/CD &amp; HIL Pipelines</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">Docker / systemd</span>
+              <span class="px-3 py-1.5 rounded-lg bg-obsidian border border-white/10 font-mono text-xs text-slate-200">Pytest / Robot Framework</span>
+            </div>
+          </div>
+
+          <!-- Quality & Domain Focus Card -->
+          <div class="rounded-2xl bg-surface/80 border border-white/[0.08] p-6 sm:p-7">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-mono text-xs font-semibold tracking-widest text-purple-400 uppercase">
+                03 // Quality Engineering &amp; Standards
+              </h3>
+              <span class="font-mono text-[11px] text-slate-500">ISTQB®</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+              Certified across <span class="text-slate-200 font-medium">ISTQB CTFL</span>, <span class="text-slate-200 font-medium">Test Automation Strategy (CT-TAS)</span>, and <span class="text-slate-200 font-medium">Automotive Software Tester</span>—aligning low-level hardware verification with ASPICE-ready traceability and repeatable KPI reporting.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6. CONTACT & FOOTER SECTION                                           -->
+    <!-- ===================================================================== -->
+    <section id="contact" class="py-16 scroll-mt-20 border-t border-white/[0.06]">
+      <div class="rounded-2xl bg-surface/85 border border-white/[0.09] p-6 sm:p-10 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          <!-- Left: Direct Contact Info & Links -->
+          <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
+            <div>
+              <span class="font-mono text-xs font-semibold tracking-widest text-cyanAccent uppercase">
+                GET IN TOUCH
+              </span>
+              <h2 class="mt-2 font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
+                Let’s talk automotive systems &amp; test architecture.
+              </h2>
+              <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+                Open to technical discussions on ECU test automation, Automotive Ethernet tooling, open-source bus loggers, and engineering leadership opportunities in Germany and Europe.
+              </p>
+            </div>
+
+            <!-- Direct Contact Buttons -->
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <a
+                  href="mailto:contact@nikeshraikar.dev"
+                  class="flex-1 inline-flex items-center justify-between px-4 py-3 rounded-xl bg-obsidian hover:bg-white/[0.04] border border-white/10 hover:border-cyanAccent/40 text-sm text-slate-200 hover:text-white transition-all"
+                >
+                  <span class="inline-flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-cyanAccent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span class="font-mono text-xs sm:text-sm">contact@nikeshraikar.dev</span>
+                  </span>
+                  <span class="text-slate-500 text-xs">↗</span>
+                </a>
+
+                <button
+                  type="button"
+                  onclick="copyEmail()"
+                  title="Copy email address"
+                  class="px-3.5 py-3 rounded-xl bg-obsidian hover:bg-white/[0.04] border border-white/10 hover:border-cyanAccent/40 text-slate-400 hover:text-cyanAccent transition-all"
+                >
+                  <span id="copy-email-label" class="font-mono text-xs">Copy</span>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <a
+                  href="https://github.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-obsidian hover:bg-white/[0.04] border border-white/10 hover:border-white/25 text-xs font-mono text-slate-200 hover:text-white transition-all"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                  </svg>
+                  <span>GitHub ↗</span>
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-obsidian hover:bg-white/[0.04] border border-white/10 hover:border-white/25 text-xs font-mono text-slate-200 hover:text-white transition-all"
+                >
+                  <svg class="w-4 h-4 text-cyanAccent" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                  </svg>
+                  <span>LinkedIn ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Lightweight Interactive Message Form -->
+          <div class="lg:col-span-7">
+            <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="sender-name" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider mb-1.5">Name</label>
+                  <input
+                    id="sender-name"
+                    type="text"
+                    required
+                    placeholder="Alex Weber"
+                    class="w-full rounded-xl bg-obsidian border border-white/10 focus:border-cyanAccent focus:outline-none px-4 py-3 text-sm text-white placeholder-slate-600 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label for="sender-email" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider mb-1.5">Email</label>
+                  <input
+                    id="sender-email"
+                    type="email"
+                    required
+                    placeholder="alex@company.de"
+                    class="w-full rounded-xl bg-obsidian border border-white/10 focus:border-cyanAccent focus:outline-none px-4 py-3 text-sm text-white placeholder-slate-600 transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="sender-message" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider mb-1.5">Message</label>
+                <textarea
+                  id="sender-message"
+                  rows="4"
+                  required
+                  placeholder="Tell me about your ECU test bench, automation challenge, or project..."
+                  class="w-full rounded-xl bg-obsidian border border-white/10 focus:border-cyanAccent focus:outline-none px-4 py-3 text-sm text-white placeholder-slate-600 transition-colors resize-none"
+                ></textarea>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-4 pt-1">
+                <button
+                  type="submit"
+                  class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-cyanAccent hover:bg-cyan-300 text-obsidian font-semibold text-sm shadow-cyan-glow transition-all duration-200"
+                >
+                  <span>Send Message</span>
+                  <span aria-hidden="true">→</span>
+                </button>
+
+                <!-- Instant Confirmation Banner -->
+                <div id="form-feedback" class="hidden items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-500/10 border border-emerald-400/30 font-mono text-xs text-emerald-300">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>Message queued — thanks for reaching out!</span>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Minimal Footer with German/EU Compliance Links -->
+  <footer class="border-t border-white/[0.06] mt-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+      <div>
+        © 2026 Nikesh Raikar • Frankfurt am Main, DE
+      </div>
+      <div class="flex items-center gap-6">
+        <button type="button" onclick="openLegalModal('impressum')" class="hover:text-slate-200 transition-colors">
+          Impressum
+        </button>
+        <button type="button" onclick="openLegalModal('datenschutz')" class="hover:text-slate-200 transition-colors">
+          Datenschutz
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 1: INTERACTIVE CV / RESUME SUMMARY                              -->
+  <!-- ===================================================================== -->
+  <div id="cv-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm" onclick="if(event.target === this) closeAllModals()">
+    <div class="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-surface border border-white/15 shadow-2xl p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 pb-5 border-b border-white/10">
+        <div>
+          <span class="font-mono text-[11px] text-cyanAccent uppercase tracking-widest">Curriculum Vitae</span>
+          <h3 class="font-display font-bold text-2xl text-white mt-1">Nikesh Raikar</h3>
+          <p class="font-mono text-xs text-slate-400 mt-1">Senior Automation Engineer &amp; Tech Lead • Frankfurt am Main, Germany</p>
+        </div>
+        <button type="button" onclick="closeAllModals()" aria-label="Close modal" class="p-2 rounded-lg bg-obsidian border border-white/10 text-slate-400 hover:text-white transition-colors">
+          ✕
+        </button>
+      </div>
+
+      <div class="py-5 space-y-5 text-sm">
+        <div>
+          <h4 class="font-mono text-xs text-cyanAccent uppercase tracking-wider mb-2">Executive Profile</h4>
+          <p class="text-slate-300 leading-relaxed">
+            Senior Automation Engineer &amp; Tech Lead with deep expertise in Automotive Embedded Systems, ECU &amp; Infotainment validation, and distributed Hardware-in-the-Loop (HIL) test architectures. Proven track record designing low-level CAN FD / Automotive Ethernet tooling and leading cross-border engineering workflows.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="rounded-xl bg-obsidian/80 border border-white/[0.07] p-4">
+            <h4 class="font-mono text-xs text-emerald-400 uppercase tracking-wider mb-2">Certifications</h4>
+            <ul class="space-y-1.5 text-xs text-slate-300 font-mono">
+              <li>• ISTQB® Automotive Tester (Oct 2026)</li>
+              <li>• ISTQB® Test Automation Strategy (CT-TAS)</li>
+              <li>• ISTQB® Foundation Level (CTFL)</li>
+              <li>• B.Sc. Electronics &amp; Communication</li>
+            </ul>
+          </div>
+
+          <div class="rounded-xl bg-obsidian/80 border border-white/[0.07] p-4">
+            <h4 class="font-mono text-xs text-amber-400 uppercase tracking-wider mb-2">Key Systems Built</h4>
+            <ul class="space-y-1.5 text-xs text-slate-300 font-mono">
+              <li>• TTxB (ceT-logger) Dual-Channel Logger</li>
+              <li>• DE ↔ IN Remote ECU Test Bench Bridge</li>
+              <li>• Automated UDS / DoIP CI/CD Pipelines</li>
+              <li>• RPi 5 &amp; ESP32-S3 Test Fixtures</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+        <span class="font-mono text-[11px] text-slate-500">Tip: Replace with your direct PDF link when deploying.</span>
+        <div class="flex items-center gap-2.5">
+          <button type="button" onclick="window.print()" class="px-4 py-2 rounded-xl bg-cyanAccent hover:bg-cyan-300 text-obsidian font-semibold text-xs transition-colors">
+            Print / Save PDF
+          </button>
+          <button type="button" onclick="closeAllModals()" class="px-4 py-2 rounded-xl bg-obsidian border border-white/10 text-slate-300 hover:text-white text-xs font-mono transition-colors">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 2: FEATURED SYSTEM ARCHITECTURE DETAILS                         -->
+  <!-- ===================================================================== -->
+  <div id="project-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm" onclick="if(event.target === this) closeAllModals()">
+    <div class="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-surface border border-white/15 shadow-2xl p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 pb-4 border-b border-white/10">
+        <div>
+          <span id="pm-badge" class="inline-flex items-center px-2.5 py-0.5 rounded-full font-mono text-[10px] uppercase tracking-wider"></span>
+          <h3 id="pm-title" class="font-display font-bold text-xl sm:text-2xl text-white mt-2"></h3>
+        </div>
+        <button type="button" onclick="closeAllModals()" aria-label="Close modal" class="p-2 rounded-lg bg-obsidian border border-white/10 text-slate-400 hover:text-white transition-colors">
+          ✕
+        </button>
+      </div>
+
+      <div class="py-5 space-y-5">
+        <p id="pm-summary" class="text-sm text-slate-300 leading-relaxed"></p>
+
+        <div class="rounded-xl bg-obsidian border border-white/[0.08] p-4">
+          <h4 class="font-mono text-[11px] text-slate-400 uppercase tracking-widest mb-3">Architecture &amp; Technical Highlights</h4>
+          <ul id="pm-points" class="space-y-2.5 text-xs sm:text-sm text-slate-300"></ul>
+        </div>
+
+        <div>
+          <h4 class="font-mono text-[11px] text-slate-400 uppercase tracking-widest mb-2.5">Core Stack</h4>
+          <div id="pm-tags" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+        <a href="#contact" onclick="closeAllModals()" class="px-4 py-2 rounded-xl bg-cyanAccent hover:bg-cyan-300 text-obsidian font-semibold text-xs transition-colors">
+          Discuss This Architecture →
+        </a>
+        <button type="button" onclick="closeAllModals()" class="px-4 py-2 rounded-xl bg-obsidian border border-white/10 text-slate-300 hover:text-white text-xs font-mono transition-colors">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 3: IMPRESSUM & DATENSCHUTZ (GERMAN / EU COMPLIANCE)             -->
+  <!-- ===================================================================== -->
+  <div id="legal-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm" onclick="if(event.target === this) closeAllModals()">
+    <div class="relative w-full max-w-lg rounded-2xl bg-surface border border-white/15 shadow-2xl p-6 sm:p-7">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <h3 id="legal-title" class="font-display font-bold text-lg text-white"></h3>
+        <button type="button" onclick="closeAllModals()" aria-label="Close modal" class="p-2 rounded-lg bg-obsidian border border-white/10 text-slate-400 hover:text-white transition-colors">
+          ✕
+        </button>
+      </div>
+      <div id="legal-body" class="py-4 text-xs sm:text-sm text-slate-300 leading-relaxed space-y-3"></div>
+      <div class="pt-3 border-t border-white/10 flex justify-end">
+        <button type="button" onclick="closeAllModals()" class="px-4 py-2 rounded-xl bg-obsidian border border-white/10 text-slate-300 hover:text-white text-xs font-mono">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- INTERACTIVE JAVASCRIPT                                                -->
+  <!-- ===================================================================== -->
+  <script>
+    // Project Architecture Data for Detail Modals
+    const PROJECT_DATA = {
+      ttxb: {
+        badge: 'OPEN SOURCE • DEBIAN PACKAGE',
+        badgeClass: 'bg-amber-400/10 border border-amber-400/30 text-amber-300',
+        title: 'TTxB (ceT-logger) — Dual-Channel Bus Logger',
+        summary:
+          'TTxB (ceT-logger) is an open-source, Linux-native automotive bus logging system engineered to run on Raspberry Pi 5. It captures synchronized CAN FD and Automotive Ethernet (100BASE-T1 / 1000BASE-T1) traffic simultaneously without requiring expensive proprietary hardware.',
+        points: [
+          'Dual-channel simultaneous capture: hardware-timestamped CAN FD frames via SocketCAN alongside raw Automotive Ethernet PCAP streams.',
+          'Packaged as a clean Debian (.deb) package with systemd service units for headless boot-to-log operation on bench and in-vehicle setups.',
+          'Microsecond-level time correlation across bus interfaces for accurate UDS, DoIP, and DLT root-cause debugging.',
+          'Scriptable Python CLI & automated log rotation tailored for continuous overnight HIL regression runs.'
+        ],
+        tags: ['Raspberry Pi 5', 'Debian (.deb)', 'SocketCAN', 'CAN FD', '100BASE-T1', '1000BASE-T1', 'Python', 'systemd']
+      },
+      crossborder: {
+        badge: 'DISTRIBUTED HARDWARE ARCHITECTURE',
+        badgeClass: 'bg-emerald-400/10 border border-emerald-400/30 text-emerald-300',
+        title: 'Cross-Border Remote ECU Test Bench (DE ↔ IN)',
+        summary:
+          'A distributed hardware-in-the-loop (HIL) bridging architecture that securely tunnels live CAN FD and Automotive Ethernet traffic between physical ECU test benches in Germany and engineering teams in India.',
+        points: [
+          'Low-latency encrypted L2/L3 network tunneling encapsulating CAN frames and Automotive Ethernet packets across intercontinental links.',
+          'Enables real-time UDS (ISO 14229) diagnostics, ECU flashing via DoIP (ISO 13400), and automated test execution without shipping scarce prototype hardware.',
+          'Automated health monitoring, watchdog reconnection, and remote power-cycling integration for 24/7 unattended CI/CD utilization.',
+          'Dramatically increased test bench utilization across time zones while maintaining strict enterprise network security.'
+        ],
+        tags: ['DE ↔ IN Tunneling', 'CAN FD Bridging', 'DoIP / UDS', 'Automotive Ethernet', 'Linux Networking', 'HIL Automation', 'CI/CD']
+      }
+    };
+
+    // Legal Placeholder Content (German / EU Compliance)
+    const LEGAL_DATA = {
+      impressum: {
+        title: 'Impressum (§ 5 DDG / TMG)',
+        html: `
+          <p><strong>Angaben gemäß § 5 DDG:</strong><br/>Nikesh Raikar<br/>Frankfurt am Main, Hessen, Deutschland</p>
+          <p><strong>Kontakt:</strong><br/>E-Mail: contact@nikeshraikar.dev</p>
+          <p class="text-slate-400 text-xs">Hinweis: Dies ist ein Platzhalter für Ihr persönliches Impressum. Bitte ergänzen Sie vor der Veröffentlichung Ihre vollständige ladungsfähige Anschrift.</p>
+        `
+      },
+      datenschutz: {
+        title: 'Datenschutzerklärung (DSGVO)',
+        html: `
+          <p>Diese Website erhebt standardmäßig keine Tracking-Cookies und nutzt keine Drittanbieter-Werbenetzwerke.</p>
+          <p>Wenn Sie das Kontaktformular nutzen oder per E-Mail Kontakt aufnehmen, werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage gemäß Art. 6 Abs. 1 lit. b / f DSGVO verarbeitet.</p>
+          <p class="text-slate-400 text-xs">Hinweis: Bitte passen Sie diese Datenschutzerklärung vor dem Livegang an Ihren konkreten Hosting-Anbieter (z. B. Cloudflare Pages / Vercel) an.</p>
+        `
+      }
+    };
+
+    // Modal Controls
+    function openCvModal() {
+      closeAllModals();
+      document.getElementById('cv-modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function openProjectModal(key) {
+      const data = PROJECT_DATA[key];
+      if (!data) return;
+
+      closeAllModals();
+      const badgeEl = document.getElementById('pm-badge');
+      badgeEl.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full font-mono text-[10px] uppercase tracking-wider ' + data.badgeClass;
+      badgeEl.textContent = data.badge;
+
+      document.getElementById('pm-title').textContent = data.title;
+      document.getElementById('pm-summary').textContent = data.summary;
+
+      const pointsEl = document.getElementById('pm-points');
+      pointsEl.innerHTML = data.points
+        .map(pt => `<li class="flex items-start gap-2.5"><span class="text-cyanAccent mt-0.5">▹</span><span>${pt}</span></li>`)
+        .join('');
+
+      const tagsEl = document.getElementById('pm-tags');
+      tagsEl.innerHTML = data.tags
+        .map(tag => `<span class="px-2.5 py-1 rounded-lg bg-obsidian border border-white/10 font-mono text-[11px] text-slate-300">${tag}</span>`)
+        .join('');
+
+      document.getElementById('project-modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function openLegalModal(type) {
+      const data = LEGAL_DATA[type];
+      if (!data) return;
+      closeAllModals();
+      document.getElementById('legal-title').textContent = data.title;
+      document.getElementById('legal-body').innerHTML = data.html;
+      document.getElementById('legal-modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeAllModals() {
+      ['cv-modal', 'project-modal', 'legal-modal'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAllModals();
+        closeMobileMenu();
+      }
+    });
+
+    // Mobile Navigation Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('mobile-menu-btn');
+      const isHidden = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(isHidden));
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('mobile-menu-btn');
+      if (menu) menu.classList.add('hidden');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    // Copy Email using execCommand fallback for iframe compatibility
+    function copyEmail() {
+      const email = 'contact@nikeshraikar.dev';
+      const label = document.getElementById('copy-email-label');
+      try {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = email;
+        tempInput.setAttribute('readonly', '');
+        tempInput.style.position = 'absolute';
+        tempInput.style.left = '-9999px';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        label.textContent = 'Copied!';
+        setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+      } catch (err) {
+        label.textContent = 'Copy';
+      }
+    }
+
+    // Contact Form Interactive Confirmation
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const feedback = document.getElementById('form-feedback');
+      const form = document.getElementById('contact-form');
+      feedback.classList.remove('hidden');
+      feedback.classList.add('inline-flex');
+      form.reset();
+      setTimeout(() => {
+        feedback.classList.add('hidden');
+        feedback.classList.remove('inline-flex');
+      }, 5000);
+    }
+
+    // Scroll-Spy Active Section Highlighting
+    document.addEventListener('DOMContentLoaded', () => {
+      const sectionIds = ['overview', 'projects', 'work', 'about', 'contact'];
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      function setActiveLink(activeId) {
+        navLinks.forEach(link => {
+          const target = link.getAttribute('data-nav-link');
+          if (target === activeId) {
+            link.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.04]');
+            link.classList.add('text-cyanAccent', 'bg-cyanAccent/10');
+          } else {
+            link.classList.remove('text-cyanAccent', 'bg-cyanAccent/10');
+            link.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.04]');
+          }
+        });
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              setActiveLink(entry.target.id);
+            }
+          });
+        },
+        { rootMargin: '-25% 0px -55% 0px', threshold: 0.05 }
+      );
+
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
